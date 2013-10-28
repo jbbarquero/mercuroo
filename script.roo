@@ -2,7 +2,17 @@
 project --topLevelPackage com.malsolo.mercuroo
 jpa setup --provider HIBERNATE --database H2_IN_MEMORY
 entity jpa --class ~.domain.Addressee --table T_ADDRESSEE --activeRecord false --testAutomatically 
-field string --fieldName name --column C_NAME --sizeMax 100 --notNull 
-repository jpa --interface ~.repository.AddresseeRepository --entity ~.domain.Addressee
+field string --fieldName name --column C_NAME --sizeMax 100 --notNull
+entity jpa --class ~.domain.Address --table T_ADDRESS --activeRecord false --testAutomatically 
+field number --type short --fieldName type --column C_TYPE --notNull 
+field string --fieldName text --column C_TEXT --notNull --sizeMax 200
+field reference --type ~.domain.Addressee --fieldName addresse --cardinality MANY_TO_ONE --fetch LAZY --joinColumnName C_ADDRESSEE_ID --notNull 
+focus --class ~.domain.Addressee 
+field set --type ~.domain.Address --fieldName addresses --fetch EAGER --mappedBy addresse --cardinality ONE_TO_MANY
+ 
 logging setup --level DEBUG 
+
+repository jpa --interface ~.repository.AddresseeRepository --entity ~.domain.Addressee
+repository jpa --interface ~.repository.AddressRepository --entity ~.domain.Address
+
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-07 08:50:18

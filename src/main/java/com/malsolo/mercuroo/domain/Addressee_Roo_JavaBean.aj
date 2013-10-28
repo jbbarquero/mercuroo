@@ -3,7 +3,9 @@
 
 package com.malsolo.mercuroo.domain;
 
+import com.malsolo.mercuroo.domain.Address;
 import com.malsolo.mercuroo.domain.Addressee;
+import java.util.Set;
 
 privileged aspect Addressee_Roo_JavaBean {
     
@@ -13,6 +15,14 @@ privileged aspect Addressee_Roo_JavaBean {
     
     public void Addressee.setName(String name) {
         this.name = name;
+    }
+    
+    public Set<Address> Addressee.getAddresses() {
+        return this.addresses;
+    }
+    
+    public void Addressee.setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
     
 }

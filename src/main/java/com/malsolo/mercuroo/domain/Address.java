@@ -5,26 +5,32 @@ import org.springframework.roo.addon.tostring.RooToString;
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @RooJavaBean
 @RooToString
-@RooJpaEntity(table = "T_ADDRESSEE")
-public class Addressee {
+@RooJpaEntity(table = "T_ADDRESS")
+public class Address {
 
     /**
      */
     @NotNull
-    @Column(name = "C_NAME")
-    @Size(max = 100)
-    private String name;
+    @Column(name = "C_TYPE")
+    private short type;
 
     /**
      */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "addresse")
-    private Set<Address> addresses = new HashSet<Address>();
+    @NotNull
+    @Column(name = "C_TEXT")
+    @Size(max = 200)
+    private String text;
+
+    /**
+     */
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "C_ADDRESSEE_ID")
+    private Addressee addresse;
 }
